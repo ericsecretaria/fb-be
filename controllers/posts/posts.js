@@ -17,19 +17,29 @@ exports.createPost = asyncHandler(async (req, res) => {
     throw new Error("Action denie, your account is not verified");
   }
   // Get the payload
-  const { title, content, categoryId } = req.body;
+  //const { title, content, retest, categoryId } = req.body;
+  const { foodtitle, foodtimeprep, foodrecipe, foodcontent, categoryId } =
+    req.body;
   //check if post exists
-  const postFound = await Post.findOne({ title });
+  const postFound = await Post.findOne({ foodtitle });
   if (postFound) {
     throw new Error("Post already exist.");
   }
   // Create post
   const post = await Post.create({
-    title,
-    content,
-    category: categoryId,
-    author: req?.userAuth?._id,
+    // title,
+    // content,
+    // retest,
+    // category: categoryId,
+    // author: req?.userAuth?._id,
+    // image: req?.file?.path,
+    foodtitle,
+    foodtimeprep,
+    foodrecipe,
     image: req?.file?.path,
+    category: categoryId,
+    foodcontent,
+    author: req?.userAuth?._id,
   });
   //! Associcate post to user
   await User.findByIdAndUpdate(
@@ -151,14 +161,15 @@ exports.updatePost = asyncHandler(async (req, res) => {
     throw new Error("Post not found");
   }
   //! image update
-  const { title, category, content } = req.body;
+  const { foodtitle, category, foodcontent, foodrecipe } = req.body;
   const post = await Post.findByIdAndUpdate(
     id,
     {
       image: req?.file?.path ? req?.file?.path : postFound?.image,
-      title: title ? title : postFound?.title,
+      foodtitle: foodtitle ? foodtitle : postFound?.foodtitle,
       category: category ? category : postFound?.category,
-      content: content ? content : postFound?.content,
+      foodcontent: foodcontent ? foodcontent : postFound?.foodcontent,
+      foodrecipe: foodrecipe ? foodrecipe : postFound?.foodrecipe,
     },
     {
       new: true,

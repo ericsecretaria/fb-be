@@ -56,7 +56,7 @@ usersRouter.put("/block/:userIdToBlock", isLoggedIn, blockUser);
 // Unblock User
 usersRouter.put("/unblock/:userIdToUnBlock", isLoggedIn, unblockUser);
 // View User
-usersRouter.get("/profile-viewer/:userProfileId", isLoggedIn, profileViewers);
+usersRouter.put("/profile-viewer/:userProfileId", isLoggedIn, profileViewers);
 
 // Following User
 usersRouter.put("/following/:userToFollowId", isLoggedIn, followingUser);

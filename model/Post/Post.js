@@ -3,7 +3,15 @@ const mongoose = require("mongoose");
 // Schema
 const postSchema = new mongoose.Schema(
   {
-    title: {
+    foodtitle: {
+      type: String,
+      required: true,
+    },
+    foodtimeprep: {
+      type: String,
+      required: true,
+    },
+    foodrecipe: {
       type: String,
       required: true,
     },
@@ -11,14 +19,15 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    foodcontent: {
+      type: String,
+      required: true,
+    },
     claps: {
       type: Number,
       default: 0,
     },
-    content: {
-      type: String,
-      required: true,
-    },
+
     author: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

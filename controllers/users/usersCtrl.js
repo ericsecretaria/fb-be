@@ -200,22 +200,27 @@ exports.unblockUser = asyncHandler(async (req, res) => {
 exports.profileViewers = asyncHandler(async (req, res) => {
   //* Find that we want to view his profile
   const userProfileId = req.params.userProfileId;
-
-  const userProfile = await User.findById(userProfileId);
-  if (!userProfile) {
-    throw new Error("User to view not found");
-  }
-
   // Find the current user
-  const currentUserId = req.userAuth._id;
+  const loggedInUser = req.userAuth._id;
+  // await userProfile.save();
 
-  //? Check if user already viewed the profile
-  if (userProfile?.profileViewers?.includes(currentUserId)) {
-    throw new Error("You have already viewed this profile");
+  // const user = await User.findById(userProfileId);
+  // if (!user) {
+  //   throw new Error("User not found");
+  // }
+
+  // Check if user is viewing himself/herself
+  if (userProfileId.toString() === loggedInUser.toString()) {
+    throw new Error("Cannot add yourself as viewer");
   }
-  //push the current user id into the user user profile
-  userProfile?.profileViewers.push(currentUserId);
-  await userProfile.save();
+
+  await User.findByIdAndUpdate(
+    userProfileId,
+    {
+      $addToSet: { profileViewers: loggedInUser },
+    },
+    { new: true }
+  );
   res.json({
     message: "You have successfully viewed his profile",
     status: "success",

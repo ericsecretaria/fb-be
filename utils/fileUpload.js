@@ -14,7 +14,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "png", "jpeg"],
   params: {
-    folder: "blogify-api",
+    folder: "food-book",
     transformation: [{ width: 500, height: 500, crop: "limit" }],
   },
 });

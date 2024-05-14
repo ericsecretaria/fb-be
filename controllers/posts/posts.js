@@ -318,24 +318,24 @@ exports.schedule = expressAsyncHandler(async (req, res) => {
 //@desc post view count
 //@route PUT /api/v1/posts/:id/post-view-count
 //@access  Private
-exports.postViewCount = expressAsyncHandler(async (req, res) => {
-  //Get the id of the post
-  const { id } = req.params;
-  //get the login user
-  const userId = req.userAuth._id;
-  //Find the post
-  const post = await Post.findById(id);
-  if (!post) {
-    throw new Error("Post not found");
-  }
-  // Push user into post likes
-  await Post.findByIdAndUpdate(
-    id,
-    {
-      $addToSet: { postViews: userId },
-    },
-    { new: true }
-  ).populate("author");
-  await post.save();
-  res.status(200).json({ message: "Post viewed succesfully", post });
-});
+// exports.postViewCount = expressAsyncHandler(async (req, res) => {
+//   //Get the id of the post
+//   const { id } = req.params;
+//   //get the login user
+//   const userId = req.userAuth._id;
+//   //Find the post
+//   const post = await Post.findById(id);
+//   if (!post) {
+//     throw new Error("Post not found");
+//   }
+//   // Push user into post likes
+//   await Post.findByIdAndUpdate(
+//     id,
+//     {
+//       $addToSet: { postViews: userId },
+//     },
+//     { new: true }
+//   ).populate("author");
+//   await post.save();
+//   res.status(200).json({ message: "Post viewed succesfully", post });
+// });

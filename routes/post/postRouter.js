@@ -38,7 +38,7 @@ postRouter.put("/dislikes/:id", isLoggedIn, dislikePost);
 //clap post
 postRouter.put("/claps/:id", isLoggedIn, claps);
 //post view count
-postRouter.put("/:id/post-view-count", isLoggedIn, postViewCount);
+// postRouter.put("/:id/post-view-count", isLoggedIn, postViewCount);
 //get single post
 postRouter.get("/:id", getPost);
 //update post

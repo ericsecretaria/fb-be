@@ -17,7 +17,6 @@ exports.createPost = asyncHandler(async (req, res) => {
     throw new Error("Action denie, your account is not verified");
   }
   // Get the payload
-  //const { title, content, retest, categoryId } = req.body;
   const { foodtitle, foodtimeprep, foodrecipe, foodcontent, categoryId } =
     req.body;
   //check if post exists
@@ -27,12 +26,6 @@ exports.createPost = asyncHandler(async (req, res) => {
   }
   // Create post
   const post = await Post.create({
-    // title,
-    // content,
-    // retest,
-    // category: categoryId,
-    // author: req?.userAuth?._id,
-    // image: req?.file?.path,
     foodtitle,
     foodtimeprep,
     foodrecipe,
